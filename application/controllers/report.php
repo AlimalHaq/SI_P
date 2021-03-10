@@ -8,7 +8,7 @@ use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Worksheet\Drawing;
 
 $Spreadsheet = new Spreadsheet();
-class report extends CI_Controller
+class Report extends CI_Controller
 {
     // Cek Apakah ada user yang Login
     public function __construct()
