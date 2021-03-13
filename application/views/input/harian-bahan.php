@@ -11,7 +11,9 @@
             <a href="<?= base_url('input'); ?> " class="btn btn-sm btn-info" title="kembali ke halaman pengawasan harian"><i class="fas fa-fw fa-chevron-circle-left fa-sm"></i> kembali</a>
         </div>
         <div class="col-sm-12">
-            <?= $this->session->flashdata('message'); ?>
+            <?= $this->session->flashdata('messagespk'); ?>
+            <?= $this->session->flashdata('messagesukses'); ?>
+            <?= $this->session->flashdata('messagegagal'); ?>
             <?= $this->session->flashdata('messagegmbr'); ?>
         </div>
         <div class="col-lg-12">

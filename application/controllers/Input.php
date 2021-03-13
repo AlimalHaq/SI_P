@@ -577,7 +577,7 @@ class Input extends CI_Controller
         $Total = $JumlahBahanYangRealisasi + $data['nilai_harianbahan'];
         if ($Total > $JumlahSpkBahan) {
             $this->session->set_flashdata(
-                'message',
+                'messagespk',
                 '<div class="alert alert-danger alert-dismissible fade show" role="alert">
                 <strong> Ops! </strong> Volume bahan melebihi SPK yang telah disepakati.
                 <button type="button" class="close" data-dismiss="alert" aria-label="Close">
@@ -692,7 +692,7 @@ class Input extends CI_Controller
                     'waktu' => $waktu
                 ]);
                 $this->session->set_flashdata(
-                    'message',
+                    'messagesukses',
                     '<div class="alert alert-success alert-dismissible fade show" role="alert">
                     <strong> Sukses! </strong> Pengawawsan Harian Bahan Berhasil di Kirim.
                     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
@@ -700,7 +700,7 @@ class Input extends CI_Controller
                 );
             } else {
                 $this->session->set_flashdata(
-                    'message',
+                    'messagegagal',
                     '<div class="alert alert-danger alert-dismissible fade show" role="alert">
                     <strong> Kesalahan! </strong> Gagal Memproses Data.
                     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
