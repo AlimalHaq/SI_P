@@ -599,14 +599,6 @@ class Input extends CI_Controller
                     if (in_array($fileType, $allowTypes)) {
                         $imageTemp = $_FILES["foto"]["tmp_name"];
                         copy($imageTemp, $imageUploadPath);
-                    } else {
-                        $this->session->set_flashdata(
-                            'messagegmbr',
-                            '<div class="alert alert-danger alert-dismissible fade show" role="alert">
-                    <strong>Upload gambar Gagal! </strong> Cek tipe file
-                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                    <span aria-hidden="true">&times;</span></button> </div>'
-                        );
                     }
                 }
                 if (!empty($_FILES["foto2"]["name"])) {
@@ -617,14 +609,6 @@ class Input extends CI_Controller
                     if (in_array($fileType, $allowTypes)) {
                         $imageTemp = $_FILES["foto2"]["tmp_name"];
                         copy($imageTemp, $imageUploadPath);
-                    } else {
-                        $this->session->set_flashdata(
-                            'messagegmbr',
-                            '<div class="alert alert-danger alert-dismissible fade show" role="alert">
-                    <strong>Upload gambar Gagal! </strong> Cek tipe file
-                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                    <span aria-hidden="true">&times;</span></button> </div>'
-                        );
                     }
                 }
                 if (!empty($_FILES["foto3"]["name"])) {
@@ -635,14 +619,6 @@ class Input extends CI_Controller
                     if (in_array($fileType, $allowTypes)) {
                         $imageTemp = $_FILES["foto3"]["tmp_name"];
                         copy($imageTemp, $imageUploadPath);
-                    } else {
-                        $this->session->set_flashdata(
-                            'messagegmbr',
-                            '<div class="alert alert-danger alert-dismissible fade show" role="alert">
-                    <strong>Upload gambar Gagal! </strong> Cek tipe file
-                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                    <span aria-hidden="true">&times;</span></button> </div>'
-                        );
                     }
                 }
                 if (!empty($_FILES["foto4"]["name"])) {
@@ -653,14 +629,6 @@ class Input extends CI_Controller
                     if (in_array($fileType, $allowTypes)) {
                         $imageTemp = $_FILES["foto4"]["tmp_name"];
                         copy($imageTemp, $imageUploadPath);
-                    } else {
-                        $this->session->set_flashdata(
-                            'messagegmbr',
-                            '<div class="alert alert-danger alert-dismissible fade show" role="alert">
-                    <strong>Upload gambar Gagal! </strong> Cek tipe file
-                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                    <span aria-hidden="true">&times;</span></button> </div>'
-                        );
                     }
                 }
                 if (!empty($_FILES["foto5"]["name"])) {
