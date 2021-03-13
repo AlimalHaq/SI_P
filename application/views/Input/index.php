@@ -22,13 +22,13 @@ $sesi = $user['role_id'];
                 <div class="card-body">
                     <div class="row no-gutters align-items-center">
                         <div class="col mr-2">
-                            <a href="<?= base_url('input/harianbibitpertama'); ?>" title="Go">
+                            <a href="<?= base_url('inputs/harianbibitpertama'); ?>" title="Go">
                                 <div class="text-x font-weight-bold text-success text-uppercase mb-1">Pengawasan Harian</div>
                                 <div class="h5 mb-0 font-weight-bold text-gray-800">Pengawasan Bibit (Tahap I) </div>
                             </a>
                         </div>
                         <div class="col-auto">
-                            <a href="<?= base_url('input/harianbibitpertama'); ?>" title="Go"><i class="fas fa-chevron-circle-right fa-3x  text-success"></i></a>
+                            <a href="<?= base_url('inputs/harianbibitpertama'); ?>" title="Go"><i class="fas fa-chevron-circle-right fa-3x  text-success"></i></a>
                         </div>
                     </div>
                 </div>
@@ -39,13 +39,13 @@ $sesi = $user['role_id'];
                 <div class="card-body">
                     <div class="row no-gutters align-items-center">
                         <div class="col mr-2">
-                            <a href="<?= base_url('input/harianbahan'); ?>" title="Go">
+                            <a href="<?= base_url('inputs/harianbahan'); ?>" title="Go">
                                 <div class="text-x font-weight-bold text-info text-uppercase mb-1">Pengawasan Harian</div>
                                 <div class="h5 mb-0 font-weight-bold text-gray-800">Bahan-Bahan</div>
                             </a>
                         </div>
                         <div class="col-auto">
-                            <a href="<?= base_url('input/harianbahan'); ?>" title="Go"><i class="fas fa-chevron-circle-right fa-3x text-info"></i></a>
+                            <a href="<?= base_url('inputs/harianbahan'); ?>" title="Go"><i class="fas fa-chevron-circle-right fa-3x text-info"></i></a>
                         </div>
                     </div>
                 </div>
@@ -56,13 +56,13 @@ $sesi = $user['role_id'];
                 <div class="card-body">
                     <div class="row no-gutters align-items-center">
                         <div class="col mr-2">
-                            <a href="<?= base_url('input/harianbibit'); ?>" title="Go">
+                            <a href="<?= base_url('inputs/harianbibit'); ?>" title="Go">
                                 <div class="text-x font-weight-bold text-success text-uppercase mb-1">Pengawasan Harian</div>
                                 <div class="h5 mb-0 font-weight-bold text-gray-800">Pengadaan Bibit (Tahap II)</div>
                             </a>
                         </div>
                         <div class="col-auto">
-                            <a href="<?= base_url('input/harianbibit'); ?>" title="Go"><i class="fas fa-chevron-circle-right fa-3x  text-success"></i></a>
+                            <a href="<?= base_url('inputs/harianbibit'); ?>" title="Go"><i class="fas fa-chevron-circle-right fa-3x  text-success"></i></a>
                         </div>
                     </div>
                 </div>
@@ -73,13 +73,13 @@ $sesi = $user['role_id'];
                 <div class="card-body">
                     <div class="row no-gutters align-items-center">
                         <div class="col mr-2">
-                            <a href="<?= base_url('input/harianlapangan'); ?>" title="Go">
+                            <a href="<?= base_url('inputs/harianlapangan'); ?>" title="Go">
                                 <div class="text-x font-weight-bold text-danger text-uppercase mb-1">Pengawasan Harian</div>
                                 <div class="h5 mb-0 font-weight-bold text-gray-800">Kegiatan di Lapangan</div>
                             </a>
                         </div>
                         <div class="col-auto">
-                            <a href="<?= base_url('input/harianlapangan'); ?>" title="Go"><i class="fas fa-chevron-circle-right fa-3x text-danger"></i></a>
+                            <a href="<?= base_url('inputs/harianlapangan'); ?>" title="Go"><i class="fas fa-chevron-circle-right fa-3x text-danger"></i></a>
                         </div>
                     </div>
                 </div>

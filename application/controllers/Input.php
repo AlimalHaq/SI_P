@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
 
-class Input extends CI_Controller
+class Inputs extends CI_Controller
 {
     // Cek Apakah ada user yang Login
     public function __construct()
