@@ -40,8 +40,9 @@
         //     echo '"' . $spkReal['totalRealisasi'] . '",';
         // }
 
-        include 'grafikbar.php';
-        include 'grafikpengawasan.php';
+        // include 'grafikbar.php';
+        include 'grafikbarPersen.php';
+        // include 'grafikpengawasan.php';
 
         ?>
     </div>

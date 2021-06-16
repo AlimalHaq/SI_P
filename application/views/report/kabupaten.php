@@ -349,7 +349,10 @@
         }
         ?>
     </div>
-    <?php include 'grafikmingguanKab.php'; ?>
+    <?php
+    include 'grafikbarkegiatankabupaten.php';
+    include 'grafikmingguanKab.php';
+    ?>
     <!-- /.container-fluid -->
 
 </div>

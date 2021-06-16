@@ -106,6 +106,7 @@ function KonDecRomawi($angka)
                                 <th scope="col">#</th>
                                 <th scope="col">Jenis Kegiatan</th>
                                 <th scope="col">Satuan</th>
+                                <th scope="col">Bobot (%)</th>
                                 <th scope="col">flag</th>
                                 <th scope="col">aksi</th>
                             </tr>
@@ -119,7 +120,17 @@ function KonDecRomawi($angka)
                                     <td class="text-center"><?= $no++; ?></td>
                                     <td class=""><?= $keg['nm_kegiatan']; ?></td>
                                     <td class="text-center"><?= $keg['satuan']; ?></td>
-                                    <td class="text-center"><?= $keg['flag_keg']; ?></td>
+                                    <td class="text-center"><?= $keg['bobot']; ?></td>
+                                    <td class="text-center">
+                                        <?php
+                                        if ($keg['flag_keg'] == 0) { ?>
+                                            <span class="btn btn-success btn-circle btn-sm"> <i class="fas fa-check"></i> </span>
+                                        <?php
+                                        } else { ?>
+                                            <span class="btn btn-danger btn-circle btn-sm"> <i class="fas fa-times"></i> </span>
+                                        <?php
+                                        } ?>
+                                    </td>
                                     <td class="text-center">
                                         <a href="#" class="badge badge-info p-1 m-0 pr-3 pl-3" data-toggle="modal" data-target="#editModalKeg<?= $keg['id_kegiatan']; ?>">Edit</a>
                                         <a href="<?= base_url('spk/kegiatanDel/') . $keg['id_kegiatan']; ?>" class="badge badge-danger  m-0 p-1" onclick="return confirm('Are you sure delete this data?')">Delete</a>
@@ -142,6 +153,9 @@ function KonDecRomawi($angka)
                                                     </div>
                                                     <div class="form-group">
                                                         <input type="text" class="form-control" value="<?= $keg['satuan']; ?>" id="satuan" name="satuan" placeholder="Satuan" title="Satuan (Ha/Patok/Batang/Unit/Paket/Buah)">
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <input type="text" class="form-control" value="<?= $keg['bobot']; ?>" id="bobot" name="bobot" placeholder="bobot" max="6" maxlength="6" title="bobot (koma persentase gunakan titik)" required>
                                                     </div>
                                                     <div class="form-group">
                                                         <label for="CheckBox" class="form-check form-check-inline">Aktif : </label>
@@ -168,6 +182,14 @@ function KonDecRomawi($angka)
                             }
                             ?>
                         </tbody>
+                        <tfoot>
+                            <tr class="table-active text-center">
+                                <th colspan="3" class="text-right">Total</th>
+                                <th><?= round($totbobot['Total'], 2); ?>%</th>
+                                <th class="text-danger">Not Active : <?= $totflag['Total']; ?></th>
+                                <th></th>
+                            </tr>
+                        </tfoot>
                     </table>
                 </div>
             </div>
@@ -189,6 +211,9 @@ function KonDecRomawi($angka)
                             </div>
                             <div class="form-group">
                                 <input type="text" class="form-control" id="satuan" name="satuan" placeholder="Satuan" title="Satuan (Ha/Patok/Batang/Unit/Paket/Buah)">
+                            </div>
+                            <div class="form-group">
+                                <input type="text" class="form-control" id="bobot" name="bobot" placeholder="bobot" max="6" maxlength="6" title="bobot (koma persentase gunakan titik)" required>
                             </div>
                         </div>
                         <div class=" modal-footer">

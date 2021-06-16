@@ -16,9 +16,21 @@ class Menu_model extends CI_Model
         $rs = empty($r[0]['tot']) ? 0 : $r[0]['tot'];
         return $rs;
     }
+
+    public function getTotalBobot()
+    {
+        $sql = "SELECT SUM(bobot) AS Total FROM `jenis_kegiatan`";
+        return $this->db->query($sql)->row_array();
+    }
+    public function getTotalFlag()
+    {
+        $sql = "SELECT count(flag_keg) AS Total FROM `jenis_kegiatan` WHERE flag_keg!='0' ";
+        return $this->db->query($sql)->row_array();
+    }
+
     public function getLapanganKegiatnModel($IdPetak)
     {
-        $query = "SELECT spklapangan.id_spklapangan,spklapangan.nilai_spklapangan, jenis_kegiatan.nm_kegiatan FROM spklapangan  INNER JOIN jenis_kegiatan  ON spklapangan.id_kegiatan = jenis_kegiatan.id_kegiatan WHERE spklapangan.id_petak = '$IdPetak'";
+        $query = "SELECT spklapangan.id_spklapangan,spklapangan.nilai_spklapangan, jenis_kegiatan.nm_kegiatan FROM spklapangan  INNER JOIN jenis_kegiatan  ON spklapangan.id_kegiatan = jenis_kegiatan.id_kegiatan WHERE spklapangan.id_petak = '$IdPetak' AND jenis_kegiatan.flag_keg='0' ";
         $r = $this->db->query($query);
         $result = array();
         foreach ($r->result_array() as $row) {

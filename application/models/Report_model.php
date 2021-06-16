@@ -194,7 +194,7 @@ class Report_model extends CI_Model
 
     public function getLapangan($IdPetak)
     {
-        $SQL = "SELECT * FROM spklapangan, jenis_kegiatan WHERE spklapangan.id_kegiatan=jenis_kegiatan.id_kegiatan AND spklapangan.id_petak='$IdPetak'";
+        $SQL = "SELECT * FROM spklapangan, jenis_kegiatan WHERE spklapangan.id_kegiatan=jenis_kegiatan.id_kegiatan AND spklapangan.id_petak='$IdPetak' AND jenis_kegiatan.flag_keg='0' ";
         return $this->db->query($SQL)->result_array();
     }
 
@@ -956,7 +956,7 @@ class Report_model extends CI_Model
         $kueriharianbibit = $this->db->query("SELECT SUM(nilai_harianbibit) AS harianbibit FROM `harianbibit` WHERE id_petak='$idpetak' ")->row_array();
         $kueriharianlapangan = $this->db->query("SELECT SUM(nilai_harianlapangan) AS harianlapangan FROM `harianlapangan` WHERE id_petak='$idpetak' ")->row_array();
         $data['bahanreal'] = $kueriharianbahan['harianbahan'] / $kuerispkbahan['spkbahan'] * 100;
-        $data['bibitreal'] = $kueriharianbibit['harianbibit'] / $kuerispkbibit['spkbibit'] * 100;
+        $data['bibitreal'] = ($kuerispkbibit['spkbibit'] == 0) ? 0 : ($kueriharianbibit['harianbibit'] / $kuerispkbibit['spkbibit']) * 100;
         $data['lapanganreal'] = $kueriharianlapangan['harianlapangan'] / $kuerispklapangan['spklapangan'] * 100;
         return $data;
     }
@@ -1239,6 +1239,16 @@ class Report_model extends CI_Model
         $res = !empty($r[0]['tot']) ? $r[0]['tot'] : 0;
         return $res;
     }
+    public function LoadBibitHarianKabKat($kab, $tgl, $kat)
+    {
+        $sql = "SELECT SUM(nilai_harianbibit) AS tot FROM harianbibit, spkbibit 
+                WHERE harianbibit.id_spkbibit=spkbibit.id_spkbibit 
+                AND harianbibit.id_kab='$kab' AND tgl = '$tgl'
+                AND spkbibit.kategori='$kat'";
+        $r = $this->db->query($sql)->result_array();
+        $res = !empty($r[0]['tot']) ? $r[0]['tot'] : 0;
+        return $res;
+    }
 
     // Report Mingguan Kabupaten (Lapangan)
     public function LoadKegiatanLapanganKab($kab)
@@ -1249,6 +1259,7 @@ class Report_model extends CI_Model
         AND tb_blok.id_blok=tb_petak.id_blok 
         AND tb_petak.id_petak=spklapangan.id_petak 
         AND spklapangan.id_kegiatan=jenis_kegiatan.id_kegiatan 
+        AND jenis_kegiatan.flag_keg = '0'
         AND dt_kabupaten.id_kabupaten='$kab' 
         GROUP BY jenis_kegiatan.id_kegiatan ORDER BY jenis_kegiatan.id_kegiatan ASC";
         return $this->db->query($sql)->result_array();

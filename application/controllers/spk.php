@@ -660,7 +660,8 @@ class Spk extends CI_Controller
         // tampilkan jenis kegiatan
         $data['kegiatan'] = $this->db->get('jenis_kegiatan')->result_array();
         $data['bibit'] = $this->db->get('bibit')->result_array();
-
+        $data['totbobot'] = $this->spk->getTotalBobot();
+        $data['totflag'] = $this->spk->getTotalFlag();
         $this->load->view('templates/header', $data);
         $this->load->view('templates/sidebar', $data);
         $this->load->view('templates/topbar', $data);
@@ -672,6 +673,7 @@ class Spk extends CI_Controller
         $data = $this->db->insert('jenis_kegiatan', [
             'nm_kegiatan' => htmlspecialchars($this->input->post('nama', true)),
             'satuan' => htmlspecialchars($this->input->post('satuan', true)),
+            'bobot' => htmlspecialchars($this->input->post('bobot', true))
         ]);
         if ($data) {
             // kirim Ke Log 
@@ -679,7 +681,7 @@ class Spk extends CI_Controller
             $time = date("H:i:s");
             $this->db->insert('dt_logs', [
                 'id_user' => $this->session->userdata('id_user_login'),
-                'logs' => "Jenis Kegiatan Ditambahkan : " . $this->input->post('nama', true) . " | " . $this->input->post('satuan', true),
+                'logs' => "Jenis Kegiatan Ditambahkan : " . $this->input->post('nama', true) . " | " . $this->input->post('satuan', true) . " | " . $this->input->post('bobot', true),
                 'id_sub_menu' => 17,
                 'tgl' => $datetime,
                 'waktu' => $time
@@ -716,7 +718,7 @@ class Spk extends CI_Controller
                 'tgl' => $datetime,
                 'waktu' => $time
             ]);
-            $this->session->set_flashdata('message', '<div class="alert alert-success alert-dismissible fade show" role="alert">
+            $this->session->set_flashdata('message', '<div class="alert alert-success alert-dismissible fade hide" role="alert">
             <strong>Sukses!</strong> Data kegiatan  telah dihapus.
             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
             <span aria-hidden="true">&times;</span></button> </div>');
@@ -736,6 +738,7 @@ class Spk extends CI_Controller
         $update = $this->db->update('jenis_kegiatan', [
             'nm_kegiatan' => htmlspecialchars($this->input->post('nama', true)),
             'satuan' => htmlspecialchars($this->input->post('satuan', true)),
+            'bobot' => htmlspecialchars($this->input->post('bobot', true)),
             'flag_keg' => $this->input->post('flag', true),
         ], $where);
         if ($update) { // kirim Ke Log 
@@ -743,7 +746,7 @@ class Spk extends CI_Controller
             $time = date("H:i:s");
             $this->db->insert('dt_logs', [
                 'id_user' => $this->session->userdata('id_user_login'),
-                'logs' => "Jenis Kegiatan Di Ubah : " . $this->input->post('nama', true) . " | " . $this->input->post('satuan', true),
+                'logs' => "Jenis Kegiatan Di Ubah : " . $this->input->post('nama', true) . " | " . $this->input->post('satuan', true) . " | " . $this->input->post('bobot', true),
                 'id_sub_menu' => 17,
                 'tgl' => $datetime,
                 'waktu' => $time

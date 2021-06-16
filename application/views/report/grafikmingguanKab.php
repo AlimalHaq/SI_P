@@ -20,7 +20,7 @@ if ($realisasi['bahanreal'] != '0' and $realisasi['bibitreal'] != '0' and $reali
         <div class="col-xl-7 col-lg-7">
             <div class="card shadow mb-4">
                 <div class="card-header py-3">
-                    <h6 class="m-0 font-weight-bold text-primary"><i class="fas fa-fw fa-chart-line"></i> Diagram Aktivitas Pengawasan Kabupaten <?= $kab['nm_kabupaten']; ?></h6>
+                    <h6 class="m-0 font-weight-bold text-primary"><i class="fas fa-fw fa-chart-line"></i> Diagram Aktivitas Pengawasan Harian Kabupaten <?= $kab['nm_kabupaten']; ?></h6>
                 </div>
                 <div class="card-body">
                     <div class="chart-area">

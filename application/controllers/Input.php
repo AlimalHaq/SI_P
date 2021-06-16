@@ -53,7 +53,6 @@ class Input extends CI_Controller
         $idnya = $this->input->post('id', TRUE);
         $this->load->model('Menu_model', 'lap');
         $data = $this->lap->getLapanganKegiatnModel($idnya);
-        $data = $this->lap->getLapanganKegiatnModel($idnya);
         echo json_encode($data);
     }
 

@@ -16,6 +16,7 @@ class Report extends CI_Controller
         parent::__construct();
         cek_userLogin();
         $this->load->model('Report_model', 'report');
+        $this->load->model('Bobot_model', 'bobot');
         date_default_timezone_set('Asia/Makassar');
     }
 
@@ -149,8 +150,6 @@ class Report extends CI_Controller
         return $res;
     }
 
-
-
     public function mingguan()
     {
         $data['title'] = 'Report Mingguan';
@@ -162,6 +161,8 @@ class Report extends CI_Controller
         $data['tglbahan'] = $this->report->LoadBahan();
         $data['tglbibit'] = $this->report->LoadBibit();
         $data['tglap'] = $this->report->LoadLapangan();
+        $this->load->model('Bobot_model', 'bobot');
+
         $this->load->view('templates/header', $data);
         $this->load->view('templates/sidebar', $data);
         $this->load->view('templates/topbar', $data);
@@ -176,6 +177,7 @@ class Report extends CI_Controller
         $this->session->userdata('email')])->row_array();
         $this->load->model('Report_model', 'report');
         $data['kabupaten'] = $this->loadKecamatan($Id);
+        $this->load->model('Bobot_model', 'bobot');
 
         $this->load->view('templates/header', $data);
         $this->load->view('templates/sidebar', $data);
@@ -276,6 +278,7 @@ class Report extends CI_Controller
         $this->session->userdata('email')])->row_array();
         $data['lokasi'] = $this->report->LoadHarianLokasi($IdRes);
         $this->load->model('Report_model', 'report');
+        $this->load->model('Bobot_model', 'bobot');
         // kirim Ke Log 
         $datetime = date("Y-m-d");
         $time = date("H:i:s");
@@ -417,7 +420,7 @@ class Report extends CI_Controller
             $this->session->set_flashdata(
                 'message',
                 '<div class="alert alert-success alert-dismissible fade show" role="alert">
-            <strong>Reject successfully!</strong> 
+            <strong>Reject Successfully !</strong> 
             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
             <span aria-hidden="true">&times;</span></button> </div>'
             );
