@@ -45,6 +45,7 @@ class Report extends CI_Controller
         $data['title'] = 'Report Peng Harian';
         $data['user'] = $this->db->get_where('dt_user', ['email' =>
         $this->session->userdata('email')])->row_array();
+        $data['kabupaten'] = $this->db->get('dt_kabupaten')->result_array();
         $data['lokasi'] = $this->loadHarian();
         $data['tallysheet'] = $this->report->tallySheet();
         $this->load->model('Report_model', 'loask');

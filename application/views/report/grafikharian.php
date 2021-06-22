@@ -8,7 +8,7 @@ $tgllapangan = $this->report->LoadKueriHarianTglLapangan($lokasi['id_petak']);
     <div class="col-xl-5 col-lg-5">
         <div class="card shadow mb-4">
             <div class="card-header py-3">
-                <h6 class="m-0 font-weight-bold text-primary"><i class="fas fa-fw fa-chart-pie"></i> Polar Grafik Persentase Realisasi</h6>
+                <h6 class="m-0 font-weight-bold text-primary"><i class="fas fa-fw fa-chart-pie"></i> Persentase Realisasi</h6>
             </div>
             <div class="card-body">
                 <canvas id="myChart" width="100%" height="100%" style="padding: 30px;"></canvas>
@@ -18,7 +18,7 @@ $tgllapangan = $this->report->LoadKueriHarianTglLapangan($lokasi['id_petak']);
     <div class="col-xl-7 col-lg-7">
         <div class="card shadow mb-4">
             <div class="card-header py-3">
-                <h6 class="m-0 font-weight-bold text-primary"><i class="fas fa-fw fa-chart-line"></i> Diagram Aktivitas Pengawasan</h6>
+                <h6 class="m-0 font-weight-bold text-primary"><i class="fas fa-fw fa-chart-line"></i> History Kegiatan Pengawasan</h6>
             </div>
             <div class="card-body">
                 <div class="chart-area">
