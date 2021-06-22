@@ -1213,7 +1213,7 @@ $aprvLapangan = "lapangan";
                                             foreach ($kategori as $kat) {
                                                 $realisasi = $this->report->getRealisasiBibitnya($kat['id_spkbibit']);
                                                 $bobotBi = $this->bobot->getBobotHarianBibit($kat['kategori']);
-                                                $persentaseBi = $realisasi['nilaibibit'] / $kat['nilai_spkbibit'] * $bobotBi['bobot'];
+                                                $persentaseBi = ($realisasi['nilaibibit'] == 0) ? '0' : $realisasi['nilaibibit'] / $kat['nilai_spkbibit'] * $bobotBi['bobot'];
                                                 $TotPersentaseBi = $TotPersentaseBi + $persentaseBi
                                             ?>
                                                 <tr>
