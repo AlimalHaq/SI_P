@@ -180,6 +180,7 @@ class Report_model extends CI_Model
         return $this->db->query($SQL)->result_array();
     }
 
+
     public function getBibit($idSpkbibit)
     {
         $sql = "SELECT * FROM spkbibit_bantu, bibit WHERE spkbibit_bantu.id_bibit=bibit.id_bibit AND spkbibit_bantu.id_spkbibit='$idSpkbibit' ";

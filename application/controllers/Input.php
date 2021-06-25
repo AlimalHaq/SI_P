@@ -8,6 +8,7 @@ class Input extends CI_Controller
     {
         parent::__construct();
         cek_userLogin();
+        $this->load->model('Anggota_model', 'anggota');
         date_default_timezone_set('Asia/Makassar');
     }
 
@@ -890,6 +891,25 @@ class Input extends CI_Controller
         redirect('input/harianlapangan');
     }
 
+    public function loadKabupaten($pl)
+    {
+        $res = array();
+        foreach ($this->anggota->loadLokasi() as $r) {
+            $cek = $this->anggota->getReportLokasiCount($r['id_kabupaten'], $r['id_kecamatan'], $r['id_desa'], $pl);
+            if ($cek['stokbahan'] > 0) {
+                $res[] = $r;
+            } else {
+                if ($cek['stoklapangan'] > 0) {
+                    $res[] = $r;
+                } else {
+                    if ($cek['stokbibit'] > 0) {
+                        $res[] = $r;
+                    }
+                }
+            }
+        }
+        return $res;
+    }
     public function view()
     {
         $data['title'] = 'View Pengawasan';
@@ -898,6 +918,9 @@ class Input extends CI_Controller
         // Query Kabupaten 
         $data['kabupaten'] = $this->db->get('dt_kabupaten')->result_array();
         // Query Lokasi berdasarkan user login
+        $data['lokasi'] = $this->loadKabupaten($data['user']['id_user']);
+        $this->load->model('Anggota_model', 'loaskAnggota');
+
         $this->load->model('Report_model', 'loask');
 
         $this->load->view('templates/header', $data);
@@ -906,21 +929,25 @@ class Input extends CI_Controller
         $this->load->view('input/view', $data);
         $this->load->view('templates/footer');
     }
-    public function viewdetailpengawasan($id_petak)
+    public function viewdetailpengawasan($Id)
     {
+        $IdRes = explode("-", $Id);
+        $data['urlx'] = $Id[4];
+        $data['IdRes'] = explode("-", $Id);
+
         $data['title'] = 'View Pengawasan';
-        $data['urlx'] = $id_petak;
         $data['user'] = $this->db->get_where('dt_user', ['email' =>
         $this->session->userdata('email')])->row_array();
         // Query Lokasi berdasarkan user login
+        $this->load->model('Bobot_model', 'bobot');
         $this->load->model('Report_model', 'det');
-        $data['details'] = $this->det->getDetPengawasanBahan($id_petak, $data['user']['id_user']);
+        $data['details'] = $this->det->getDetPengawasanBahan($IdRes[4], $data['user']['id_user']);
         // kirim Ke Log 
         $datetime = date("Y-m-d");
         $waktu = date("H:i:s");
         $this->db->insert('dt_logs', [
             'id_user' => $this->session->userdata('id_user_login'),
-            'logs' => "Akses Detail Pengawasan Bahan : idpetak(" . $id_petak . ")",
+            'logs' => "Akses Detail Pengawasan Bahan : idpetak(" . $IdRes[4] . ")",
             'id_sub_menu' => 9,
             'tgl' => $datetime,
             'waktu' => $waktu

@@ -273,4 +273,64 @@ class Anggota_model extends CI_Model
         $SQL = "SELECT SUM(nilai_harianlapangan) AS totnilai FROM harianlapangan WHERE id_spklapangan='$id_spk' AND id_petak='$id_petak' AND tgl='$tgl' AND id_user='$pl' ";
         return $this->db->query($SQL)->row_array();
     }
+
+    public function getStatusB($id_petak, $id_spkbahan, $iduser)
+    {
+        $SQL = "SELECT harianbahan.status FROM harianbahan WHERE id_spkbahan='$id_spkbahan' AND id_petak='$id_petak' AND id_user='$iduser' ";
+        return $this->db->query($SQL)->result_array();
+    }
+
+    public function getStatusBi($id_petak, $id_bibit, $iduser)
+    {
+        $SQL = "SELECT harianbibit.status FROM harianbibit WHERE id_bibit='$id_bibit' AND id_petak='$id_petak' AND id_user='$iduser' ";
+        return $this->db->query($SQL)->result_array();
+    }
+
+    public function getStatusL($id_petak, $spklap, $iduser)
+    {
+        $SQL = "SELECT harianlapangan.status FROM harianlapangan WHERE id_spklapangan='$spklap' AND id_petak='$id_petak' AND id_user='$iduser' ";
+        return $this->db->query($SQL)->result_array();
+    }
+
+
+    // Grafik harian (PolarArea chart)
+    public function LoadHarianRealisasi($idpetak)
+    {
+        $kuerispkbahan = $this->db->query("SELECT SUM(nilai_spkbahan) AS spkbahan FROM `spkbahan` WHERE id_petak='$idpetak' ")->row_array();
+        $kuerispkbibit = $this->db->query("SELECT SUM(nilai_spkbibit) AS spkbibit FROM `spkbibit` WHERE id_petak='$idpetak' ")->row_array();
+        $kuerispklapangan = $this->db->query("SELECT SUM(nilai_spklapangan) AS spklapangan FROM `spklapangan` WHERE id_petak='$idpetak' ")->row_array();
+        // realisasi 
+        $kueriharianbahan = $this->db->query("SELECT SUM(nilai_harianbahan) AS harianbahan FROM `harianbahan` WHERE id_petak='$idpetak' ")->row_array();
+        $kueriharianbibit = $this->db->query("SELECT SUM(nilai_harianbibit) AS harianbibit FROM `harianbibit` WHERE id_petak='$idpetak' ")->row_array();
+        $kueriharianlapangan = $this->db->query("SELECT SUM(nilai_harianlapangan) AS harianlapangan FROM `harianlapangan` WHERE id_petak='$idpetak' ")->row_array();
+        $data['bahanreal'] = $kueriharianbahan['harianbahan'] / $kuerispkbahan['spkbahan'] * 100;
+        $data['bibitreal'] = ($kuerispkbibit['spkbibit'] == 0) ? 0 : ($kueriharianbibit['harianbibit'] / $kuerispkbibit['spkbibit']) * 100;
+        $data['lapanganreal'] = $kueriharianlapangan['harianlapangan'] / $kuerispklapangan['spklapangan'] * 100;
+        return $data;
+    }
+
+    // Grafik Harian Line Chart 
+    public function LoadKueriHarianTglBahan($idpetak)
+    {
+        $tglbahan = "SELECT tgl AS tglbahan FROM harianbahan WHERE id_petak='$idpetak' GROUP BY tgl ORDER BY tgl ASC";
+        return $this->db->query($tglbahan)->result_array();
+    }
+    public function LoadKueriHarianTglBibitNotin($idpetak)
+    {
+        $tglbibit = "SELECT tgl AS tglbibit FROM harianbibit WHERE id_petak='$idpetak' AND tgl NOT IN (SELECT tgl FROM harianbahan WHERE id_petak = '$idpetak') GROUP BY tgl ORDER BY tgl ASC";
+        return $this->db->query($tglbibit)->result_array();
+    }
+    public function LoadKueriHarianTglLapangan($idpetak)
+    {
+        $tgllapangan = "SELECT tgl AS tgllapangan FROM harianlapangan WHERE id_petak='$idpetak' AND tgl NOT IN (SELECT tgl FROM harianbahan WHERE id_petak = '$idpetak') AND tgl NOT IN (SELECT tgl FROM harianbibit WHERE id_petak = '$idpetak') GROUP BY tgl ORDER BY tgl ASC";
+        return $this->db->query($tgllapangan)->result_array();
+    }
+    public function LoadKueriHarianTglNilai($petak, $tgl)
+    {
+        $bahan = $this->db->query("SELECT count(id_harianbahan) AS jumbahan FROM harianbahan WHERE tgl = '$tgl' AND id_petak='$petak'")->row_array();
+        $bibit = $this->db->query("SELECT count(id_harianbibit) AS jumbibit FROM harianbibit WHERE tgl = '$tgl' AND id_petak='$petak'")->row_array();
+        $lapangan = $this->db->query("SELECT count(id_harianlapangan) AS jumlapangan FROM harianlapangan WHERE tgl = '$tgl' AND id_petak='$petak'")->row_array();
+        $data['nilai'] = $bahan['jumbahan'] + $bibit['jumbibit'] + $lapangan['jumlapangan'];
+        return $data;
+    }
 }

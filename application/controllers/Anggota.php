@@ -94,6 +94,7 @@ class Anggota extends CI_Controller
         $data['pl'] = $this->db->get_where('dt_user', ['id_user' => $IdRes[5]])->row_array();
         $data['lokasi'] = $this->anggota->loadPengawasanLokasi($IdRes);
         $this->load->model('Anggota_model', 'report');
+        $this->load->model('Bobot_model', 'bobot');
         // Kirim Ke Logs 
         $date = date("Y-m-d");
         $time = date("H:i:s");

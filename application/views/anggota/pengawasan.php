@@ -874,6 +874,7 @@
                                                 <th>Jenis Kegiatan</th>
                                                 <th>Satuan</th>
                                                 <th>Progress</th>
+                                                <th>Bobot</th>
                                                 <th>Kendala/Rekomendasi</th>
                                                 <th>#</th>
                                             </tr>
@@ -885,16 +886,27 @@
                                             </tr>
                                             <?php
                                             $no = 1;
+                                            $TotPersentaseBh = 0;
                                             $bahan = $this->report->getBahan($lokasi['id_petak']);
                                             foreach ($bahan as $value) {
                                                 $nilai = $this->report->getBahanProgres($lokasi['id_petak'], $value['id_spkbahan'], $IdRes[5]);
                                                 $ket = $this->report->getBahanKet($lokasi['id_petak'], $value['id_spkbahan'], $IdRes[5]);
+                                                $bobot = $this->bobot->getBobotHarian($value['id_kegiatan']);
+                                                $persentase = ($value['nilai_spkbahan'] == 0) ? 0 : ($nilai['totnilai'] / $value['nilai_spkbahan']) * $bobot['bobot'];
+                                                $TotPersentaseBh = $TotPersentaseBh + $persentase;
                                             ?>
                                                 <tr>
                                                     <td class="text-right"><?= $no++ ?></td>
                                                     <td><?= $value['nm_kegiatan']; ?></td>
                                                     <td class="text-center"><?= $value['satuan']; ?></td>
-                                                    <td class="text-center font-weight-bold <?= ($nilai['totnilai'] > $value['nilai_spkbahan']) ? "text-warning" : ""; ?>  <?= ($nilai['totnilai'] < $value['nilai_spkbahan']) ? "text-danger" : "text-success"; ?>" style='cursor:pointer' data-toggle='tooltip' data-placement="top" title="<?= number_format($nilai['totnilai'], 2, ',', '.'); ?> Dari <?= number_format($value['nilai_spkbahan'], 2, ',', '.'); ?>"><?= number_format($nilai['totnilai'], 2, ',', '.'); ?></td>
+                                                    <td class="text-center font-weight-bold <?= ($nilai['totnilai'] > $value['nilai_spkbahan']) ? "text-warning" : ""; ?>  <?= ($nilai['totnilai'] < $value['nilai_spkbahan']) ? "text-danger" : "text-success"; ?>" style='cursor:pointer' data-toggle='tooltip' data-placement="top" title="<?= number_format($nilai['totnilai'], 2, ',', '.'); ?> Dari <?= number_format($value['nilai_spkbahan'], 2, ',', '.'); ?>">
+                                                        <?= number_format($nilai['totnilai'], 2, ',', '.'); ?>
+                                                    </td>
+                                                    <td class="text-center <?= ($persentase >= $bobot['bobot']) ? "text-success" : "text-danger"; ?> " style='cursor:pointer' data-toggle='tooltip' data-placement="right" title="Dari <?= $bobot['bobot']; ?>">
+                                                        <?php
+                                                        echo round($persentase, 2) . "%";
+                                                        ?>
+                                                    </td>
                                                     <td>
                                                         <?php
                                                         foreach ($ket as $valueket) {
@@ -1086,6 +1098,7 @@
                                                 </tr>
                                             <?php
                                             }
+                                            $persentaseBahan = $TotPersentaseBh;
                                             ?>
                                             <tr>
                                                 <th class="text-left">II</th>
@@ -1093,15 +1106,24 @@
                                             </tr>
                                             <?php
                                             $nom = 1;
+                                            $TotPersentaseBi = 0;
                                             $kategori = $this->db->get_where('spkbibit', ['id_petak' => $lokasi['id_petak']])->result_array();
                                             foreach ($kategori as $kat) {
                                                 $realisasi = $this->report->getRealisasiBibitnya($kat['id_spkbibit'], $IdRes[5]);
+                                                $bobotBi = $this->bobot->getBobotHarianBibit($kat['kategori']);
+                                                $persentaseBi = ($realisasi['nilaibibit'] == 0) ? '0' : $realisasi['nilaibibit'] / $kat['nilai_spkbibit'] * $bobotBi['bobot'];
+                                                $TotPersentaseBi = $TotPersentaseBi + $persentaseBi
                                             ?>
                                                 <tr>
                                                     <td class="text-right"><?= $nom++; ?></td>
                                                     <td><?= $kat['kategori']; ?></td>
                                                     <td></td>
                                                     <td class="text-center"><b class="<?= ($realisasi['nilaibibit'] < $kat['nilai_spkbibit']) ? "text-danger" : ""; ?> <?= ($realisasi['nilaibibit'] > $kat['nilai_spkbibit']) ? "text-warning" : "text-success"; ?>"><?= number_format($realisasi['nilaibibit'], 0, ',', '.'); ?></b> dari <b class="text-success"><?= number_format($kat['nilai_spkbibit'], 0, ',', '.'); ?></b></td>
+                                                    <td class="text-center <?= ($persentaseBi >= $bobotBi['bobot']) ? "text-success" : "text-danger"; ?> " style='cursor:pointer' data-toggle='tooltip' data-placement="right" title="Dari <?= $bobotBi['bobot']; ?>">
+                                                        <?php
+                                                        echo round($persentaseBi, 2) . "%";
+                                                        ?>
+                                                    </td>
                                                     <td></td>
                                                     <td></td>
                                                 </tr>
@@ -1117,6 +1139,7 @@
                                                         <td> - <?= $valueBibit['nm_bibit']; ?></td>
                                                         <td class="text-center"><?= $valueBibit['satuan']; ?></td>
                                                         <td class="text-center font-weight-bold <?= ($realisasi['nilaibibit'] < $kat['nilai_spkbibit']) ? "text-danger" : ""; ?> <?= ($realisasi['nilaibibit'] > $kat['nilai_spkbibit']) ? "text-warning" : "text-success"; ?>" data-toggle="tooltip" data-placement="left" title="<?= number_format($realisasi['nilaibibit'], 0, ',', '.'); ?> dari <?= number_format($kat['nilai_spkbibit'], 0, ',', '.'); ?>"><?= number_format($progresbibit['total'], 0, ',', '.'); ?></td>
+                                                        <td></td>
                                                         <td>
                                                             <?php
                                                             foreach ($harianbibit as $harbit) {
@@ -1308,6 +1331,7 @@
                                             <?php
                                                 }
                                             }
+                                            $persentaseBibit = $TotPersentaseBi;
                                             ?>
                                             <tr>
                                                 <th class="text-left">III</th>
@@ -1315,17 +1339,25 @@
                                             </tr>
                                             <?php
                                             $nomr = 1;
+                                            $TotPersentaseLa = 0;
                                             $lapangan = $this->report->getLapangan($lokasi['id_petak']);
                                             foreach ($lapangan as $valueLap) {
                                                 $progreslapangan = $this->report->getLapanganProgres($lokasi['id_petak'], $valueLap['id_spklapangan'], $IdRes[5]);
                                                 $harianlapangan = $this->db->get_where('harianlapangan', ['id_spklapangan' => $valueLap['id_spklapangan'], 'id_petak' => $lokasi['id_petak'], 'id_user' => $IdRes[5]])->result_array();
-                                                // $progres = empty($progreslapangan['totnilai']) ? "0" : $progreslapangan['totnilai'];
+                                                $bobotLa = $this->bobot->getBobotHarianLap($valueLap['id_kegiatan']);
+                                                $persentaseLap = ($valueLap['nilai_spklapangan'] == 0) ? 0 : ($progreslapangan['totnilai'] / $valueLap['nilai_spklapangan']) * $bobotLa['bobot'];
+                                                $TotPersentaseLa = $TotPersentaseLa + $persentaseLap;
                                             ?>
                                                 <tr>
                                                     <td class="text-right"><?= $nomr++; ?></td>
                                                     <td><?= $valueLap['nm_kegiatan']; ?></td>
                                                     <td class="text-center"><?= $valueLap['satuan']; ?></td>
                                                     <td class="text-center font-weight-bold <?= ($valueLap['nilai_spklapangan'] < $progreslapangan['totnilai']) ? "text-warning" : ""; ?> <?= ($valueLap['nilai_spklapangan'] > $progreslapangan['totnilai']) ? "text-danger" : "text-success"; ?>" data-toggle="tooltip" data-placement="top" title="<?= number_format($progreslapangan['totnilai'], 2, '.', ','); ?> dari <?= number_format($valueLap['nilai_spklapangan'], 2, '.', ','); ?>"><?= number_format($progreslapangan['totnilai'], 2, '.', ','); ?></td>
+                                                    <td class="text-center <?= ($persentaseLap >= $bobotLa['bobot']) ? "text-success" : "text-danger"; ?> " style='cursor:pointer' data-toggle='tooltip' data-placement="right" title="Dari <?= $bobotLa['bobot']; ?>">
+                                                        <?php
+                                                        echo round($persentaseLap, 2) . "%";
+                                                        ?>
+                                                    </td>
                                                     <td>
                                                         <?php
                                                         foreach ($harianlapangan as $ket) {
@@ -1534,8 +1566,20 @@
                                                 </tr>
                                             <?php
                                             }
+                                            $persentaseLapangan = $TotPersentaseLa;
+                                            $TotalPersen = $persentaseBahan + $persentaseBibit + $persentaseLapangan;
+                                            $persenHarian = round($TotalPersen, 2);
                                             ?>
                                         </tbody>
+                                        <tfoot>
+                                            <tr class="text-center">
+                                                <th colspan="3" class="text-right">Total</th>
+                                                <th></th>
+                                                <th class="<?= ($persenHarian == 100) ? "text-success" : "text-danger" ?>"><?= $persenHarian; ?>%</th>
+                                                <th></th>
+                                                <th></th>
+                                            </tr>
+                                        </tfoot>
                                     </table>
                                 </small>
                             </div>
@@ -1555,6 +1599,7 @@
         </div>
     <?php
     }
+    include 'grafikharian.php'
     ?>
 </div>
 <!-- /.container-fluid -->
