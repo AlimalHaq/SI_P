@@ -8,6 +8,8 @@ class Auth extends CI_Controller
         parent::__construct();
         $this->load->library('form_validation');
         date_default_timezone_set('Asia/Makassar');
+        // Data Log Visitor
+        $this->load->model('Log_model', 'lognya');
     }
     public function index()
     {
@@ -19,6 +21,13 @@ class Auth extends CI_Controller
         $this->form_validation->set_rules('password', 'Password', 'trim|required');
 
         if ($this->form_validation->run() == false) {
+
+            // Data Log Visitor
+            $data['userlo'] = '0';
+            $data['clien_ip'] = $this->lognya->get_clien_ip();
+            $data['clien_ip2'] = $this->lognya->get_client_ip_2();
+            $data['client_browser'] = $this->lognya->get_client_browser();
+
             $data['title'] = 'Login Page';
             $this->load->view('templates/auth_header', $data);
             $this->load->view('auth/login');
@@ -89,8 +98,12 @@ class Auth extends CI_Controller
             'min_length' => 'Password too short!'
         ]);
         $this->form_validation->set_rules('password2', 'Password', 'required|trim|matches[password1]');
-
         if ($this->form_validation->run() == false) {
+            // Data Log Visitor
+            $data['userlo'] = '0';
+            $data['clien_ip'] = $this->lognya->get_clien_ip();
+            $data['clien_ip2'] = $this->lognya->get_client_ip_2();
+            $data['client_browser'] = $this->lognya->get_client_browser();
             $data['title'] = 'USER REGISTRATION';
             $this->load->view('templates/auth_header', $data);
             $this->load->view('auth/registration');

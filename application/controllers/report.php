@@ -297,6 +297,33 @@ class Report extends CI_Controller
         $this->load->view('templates/footer');
     }
 
+    public function extlink($id)
+    {
+        $data['user'] = $this->db->get_where('dt_user', ['email' =>
+        $this->session->userdata('email')])->row_array();
+        $data['submenu'] = $this->db->get_where('user_sub_menu', ['id' => $id])->row_array();
+        $data['title'] = $data['submenu']['title'];
+        $this->load->view('templates/header', $data);
+        $this->load->view('templates/sidebar', $data);
+        $this->load->view('templates/topbar', $data);
+        $this->load->view('report/extlink', $data);
+        $this->load->view('templates/footer');
+    }
+
+    public function allreport()
+    {
+        $data['title'] = 'All Report';
+        $data['user'] = $this->db->get_where('dt_user', ['email' =>
+        $this->session->userdata('email')])->row_array();
+        $this->load->model('Report_model', 'report');
+        $this->load->model('Bobot_model', 'bobot');
+        $this->load->view('templates/header', $data);
+        $this->load->view('templates/sidebar', $data);
+        $this->load->view('templates/topbar', $data);
+        $this->load->view('report/allReport', $data);
+        $this->load->view('templates/footer');
+    }
+
     public function tallysheet($Id)
     {
         $data['urlx'] = $Id;

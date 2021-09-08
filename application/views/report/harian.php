@@ -23,7 +23,7 @@ $aprvLapangan = "lapangan";
             $tepilih = isset($_GET['tgl']) != "" ? $_GET['tgl'] : "";
             ?>
             <form class="form-inline">
-                <table class="table table-sm table-borderless">
+                <table class="table table-bordered table-sm table-borderless">
                     <tr>
                         <td class="font-weight-bold">
                             Berdasarkan Tanggal Pengawasan :
@@ -32,8 +32,9 @@ $aprvLapangan = "lapangan";
                             <input type="submit" class="btn btn-primary" value="Confirm identity">
                             <a href="<?= base_url('report/harian/') . $urlx; ?>" class="btn btn-danger"> Reset</a>
                         </td>
-                        <td>
-                            <button class="btn btn-sm btn-warning" onclick="printContent('reportHarian')"><i class="fas fa-print"></i></button>
+                        <td align="center" data-toggle="tooltip" data-placement="bottom" id="showTooltip" title="Export to">
+                            <a data-toggle="tooltip" data-placement="top" title="Export to Excel" href="<?= base_url('report/detailExcelKab/'); ?>" target="_blank" class="btn btn-sm btn-info"><i class="far fa-file-excel"></i> csv</a> &nbsp; &nbsp;
+                            <button data-toggle="tooltip" data-placement="top" title="Export to pdf" class="btn btn-sm btn-warning" onclick="printContent('reportHarian')"><i class="fas fa-print"></i> pdf</button>
                         </td>
                     </tr>
                 </table>

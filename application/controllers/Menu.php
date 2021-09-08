@@ -143,6 +143,7 @@ class Menu extends CI_Controller
                 'title' => $this->input->post('title'),
                 'menu_id' => $this->input->post('menu_id'),
                 'url' => $this->input->post('url'),
+                'url_ext' => $this->input->post('urlExt'),
                 'icon' => $this->input->post('icon'),
                 'is_active' => $this->input->post('is_active')
             ];
@@ -170,6 +171,19 @@ class Menu extends CI_Controller
         }
     }
 
+    public function extlink($id)
+    {
+        $data['user'] = $this->db->get_where('dt_user', ['email' =>
+        $this->session->userdata('email')])->row_array();
+        $data['submenu'] = $this->db->get_where('user_sub_menu', ['id' => $id])->row_array();
+        $data['title'] = $data['submenu']['title'];
+        $this->load->view('templates/header', $data);
+        $this->load->view('templates/sidebar', $data);
+        $this->load->view('templates/topbar', $data);
+        $this->load->view('menu/extlink', $data);
+        $this->load->view('templates/footer');
+    }
+
     public function submenuUpdt($id)
     {
         $data['title'] = 'Submenu Management';
@@ -195,6 +209,7 @@ class Menu extends CI_Controller
                 'title' => $this->input->post('title'),
                 'menu_id' => $this->input->post('menu_id'),
                 'url' => $this->input->post('url'),
+                'url_ext' => $this->input->post('urlExt'),
                 'icon' => $this->input->post('icon'),
                 'is_active' => $this->input->post('is_active')
             ];

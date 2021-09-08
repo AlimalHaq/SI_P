@@ -57,7 +57,7 @@
 <!-- <script src="assets/jquery-3.5.1.min.js"></script> -->
 <!-- Page Data Tables level custom scripts -->
 <script type="text/JavaScript">
-
+    $('#showTooltip').tooltip('show');
     $(function () {
         $('[data-toggle="tooltip"]').tooltip()
     })

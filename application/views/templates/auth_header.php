@@ -32,3 +32,24 @@
 </head>
 
 <body class="bg">
+
+    <?php
+    // $ipnya = "$clien_ip | $clien_ip2";
+    // $sudahada = $this->db->get_where('tb_visitor', ['user' => $userlo, 'ip' => $ipnya])->row_array();
+    // if ($sudahada < 1) {
+    //     # code...
+    //     $datVisitor = [
+    //         'user' => "$userlo",
+    //         'count' => '1',
+    //         'ip' => $ipnya,
+    //         'browser' => "$client_browser",
+    //         'os' => "$_SERVER[HTTP_USER_AGENT]",
+    //         'waktu' => time(),
+    //         'ket' => "$title"
+    //     ];
+    //     $this->db->insert('tb_visitor', $datVisitor);
+    // } else {
+    //     $nilaiCount = $sudahada['count'] + 1;
+    //     $this->db->update('tb_visitor', ['count' => $nilaiCount, 'waktu' => time(), 'ket' => "$title"], ['id' => $sudahada['id']]);
+    // }
+    ?>

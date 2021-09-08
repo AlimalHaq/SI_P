@@ -9,12 +9,20 @@ class Admin extends CI_Controller
         cek_userLogin();
         $this->load->model('Report_model', 'report');
         date_default_timezone_set('Asia/Makassar');
+
+        // Data Log Visitor
+        $this->load->model('Log_model', 'lognya');
     }
     public function logs()
     {
         $data['title'] = 'Aktivitas';
         $data['user'] = $this->db->get_where('dt_user', ['email' =>
         $this->session->userdata('email')])->row_array();
+
+        // Data Log Visitor
+        $data['clien_ip'] = $this->lognya->get_clien_ip();
+        $data['clien_ip2'] = $this->lognya->get_client_ip_2();
+        $data['client_browser'] = $this->lognya->get_client_browser();
 
         $this->load->model('Report_model', 'loask');
         $data['log'] = $this->loask->getLogsDetail();
@@ -55,6 +63,12 @@ class Admin extends CI_Controller
         $dbUsers = $this->db->get('dt_user');
         $data['users'] = $dbUsers->num_rows();
         // total pengwasan harian masuk
+
+        // Data Log Visitor
+        $data['clien_ip'] = $this->lognya->get_clien_ip();
+        $data['clien_ip2'] = $this->lognya->get_client_ip_2();
+        $data['client_browser'] = $this->lognya->get_client_browser();
+
         $dbHarian = $this->db->get('harianlapangan');
         $data['harian'] = $dbHarian->num_rows();
         $data['lokasi'] = $this->loadHarian();
@@ -82,6 +96,19 @@ class Admin extends CI_Controller
         $this->load->view('templates/footer');
     }
 
+    public function extlink($id)
+    {
+        $data['user'] = $this->db->get_where('dt_user', ['email' =>
+        $this->session->userdata('email')])->row_array();
+        $data['submenu'] = $this->db->get_where('user_sub_menu', ['id' => $id])->row_array();
+        $data['title'] = $data['submenu']['title'];
+        $this->load->view('templates/header', $data);
+        $this->load->view('templates/sidebar', $data);
+        $this->load->view('templates/topbar', $data);
+        $this->load->view('admin/extlink', $data);
+        $this->load->view('templates/footer');
+    }
+
     public function role()
     {
         $data['title'] = 'Role';
@@ -89,6 +116,10 @@ class Admin extends CI_Controller
 
         $data['role'] = $this->db->get('user_role')->result_array();
 
+        // Data Log Visitor
+        $data['clien_ip'] = $this->lognya->get_clien_ip();
+        $data['clien_ip2'] = $this->lognya->get_client_ip_2();
+        $data['client_browser'] = $this->lognya->get_client_browser();
         // Form AddRole
         $this->form_validation->set_rules('role', 'Role', 'required');
 
@@ -179,11 +210,16 @@ class Admin extends CI_Controller
 
         $data['role'] = $this->db->get_where('user_role', ['id' => $role_id])->row_array();
         // Query Semua data menu yang ada di tabel menu kecuali admin
-     
+
         if ($role_id == 1) {
             $this->db->where('id !=', 1);
         }
-		
+
+        // Data Log Visitor
+        $data['clien_ip'] = $this->lognya->get_clien_ip();
+        $data['clien_ip2'] = $this->lognya->get_client_ip_2();
+        $data['client_browser'] = $this->lognya->get_client_browser();
+
         $data['menu'] = $this->db->get('user_menu')->result_array();
 
         $this->load->view('templates/header', $data);
@@ -256,6 +292,11 @@ class Admin extends CI_Controller
         ]);
         $this->form_validation->set_rules('password2', 'Password', 'required|trim|matches[password1]');
         $this->form_validation->set_rules('role_id', 'Role', 'required');
+
+        // Data Log Visitor
+        $data['clien_ip'] = $this->lognya->get_clien_ip();
+        $data['clien_ip2'] = $this->lognya->get_client_ip_2();
+        $data['client_browser'] = $this->lognya->get_client_browser();
 
         if ($this->form_validation->run() == false) {
             $this->load->view('templates/header', $data);
@@ -420,6 +461,11 @@ class Admin extends CI_Controller
         // Select  Semua users Kecuali Supervisor
         $this->load->model('Menu_model', 'nonsupervisor');
         $data['nonvis'] = $this->nonsupervisor->getNonSupervisor();
+
+        // Data Log Visitor
+        $data['clien_ip'] = $this->lognya->get_clien_ip();
+        $data['clien_ip2'] = $this->lognya->get_client_ip_2();
+        $data['client_browser'] = $this->lognya->get_client_browser();
 
         $this->load->view('templates/header', $data);
         $this->load->view('templates/sidebar', $data);

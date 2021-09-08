@@ -1341,4 +1341,9 @@ class Report_model extends CI_Model
         $data['nilai'] = $bahan['jumbahan'] + $bibit['jumbibit'] + $lapangan['jumlapangan'];
         return $data;
     }
+    public function getPengawasanlokasi()
+    {
+        $query = $this->db->query("SELECT * FROM dt_kabupaten, dt_kecamatan, dt_desa, tb_blok, tb_petak WHERE dt_kabupaten.id_kabupaten=dt_kecamatan.id_kabupaten AND dt_kecamatan.id_kecamatan=dt_desa.id_kecamatan AND dt_desa.id_desa=tb_blok.id_desa AND tb_blok.id_blok=tb_petak.id_blok ORDER BY dt_kabupaten.nm_kabupaten")->result_array();
+        return $query;
+    }
 }

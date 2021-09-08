@@ -48,8 +48,14 @@
                 <li class="nav-item active">
                 <?php else : ?>
                 <li class="nav-item">
-                <?php endif; ?>
-                <a class="nav-link pb-0" href="<?= base_url($sms['url']) ?>">
+                <?php endif;
+            if (!empty($sms['url_ext'])) {
+                $link = $sms['id'];
+            } else {
+                $link = "";
+            }
+                ?>
+                <a class="nav-link pb-0" href="<?= base_url($sms['url'] . '/' . $link) ?>">
                     <i class="<?= $sms['icon']; ?>"></i>
                     <span><?= $sms['title']; ?></span></a>
                 </li>
