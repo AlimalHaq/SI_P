@@ -33,7 +33,7 @@ $aprvLapangan = "lapangan";
                             <a href="<?= base_url('report/harian/') . $urlx; ?>" class="btn btn-danger"> Reset</a>
                         </td>
                         <td align="center" data-toggle="tooltip" data-placement="bottom" id="showTooltip" title="Export to">
-                            <a data-toggle="tooltip" data-placement="top" title="Export to Excel" href="<?= base_url('report/detailExcelKab/'); ?>" target="_blank" class="btn btn-sm btn-info"><i class="far fa-file-excel"></i> csv</a> &nbsp; &nbsp;
+                            <!-- <a data-toggle="tooltip" data-placement="top" title="Export to Excel" href="<?= base_url('report/detailExcelKab/'); ?>" target="_blank" class="btn btn-sm btn-info"><i class="far fa-file-excel"></i> csv</a> &nbsp; &nbsp; -->
                             <button data-toggle="tooltip" data-placement="top" title="Export to pdf" class="btn btn-sm btn-warning" onclick="printContent('reportHarian')"><i class="fas fa-print"></i> pdf</button>
                         </td>
                     </tr>
@@ -152,7 +152,7 @@ $aprvLapangan = "lapangan";
                                                 <td class="text-right"><?= $no++ ?></td>
                                                 <td><?= $value['nm_kegiatan']; ?></td>
                                                 <td class="text-center"><?= $value['satuan']; ?></td>
-                                                <td class="text-center"><?= $value['nilai_spkbahan']; ?></td>
+                                                <td class="text-center"><?= number_format($value['nilai_spkbahan'], 2, ',', '.'); ?></td>
                                                 <td class="text-center <?= ($nilai['totnilai'] > $value['nilai_spkbahan']) ? "text-warning" : ""; ?>  <?= ($nilai['totnilai'] < $value['nilai_spkbahan']) ? "text-danger" : "text-success"; ?>" style='cursor:pointer' data-toggle='tooltip' data-placement="top" title="<?= number_format($nilai['totnilai'], 2, ',', '.'); ?> Dari <?= number_format($value['nilai_spkbahan'], 2, ',', '.'); ?>"><?= number_format($nilai['totnilai'], 2, ',', '.'); ?></td>
                                                 <td class="text-center <?= ($persentase >= $bobot['bobot']) ? "text-success" : "text-danger"; ?> " style='cursor:pointer' data-toggle='tooltip' data-placement="right" title="Dari <?= $bobot['bobot']; ?>">
                                                     <?php
@@ -380,7 +380,7 @@ $aprvLapangan = "lapangan";
                                                 <td class="text-right"><?= $nom++; ?></td>
                                                 <td><?= $kat['kategori']; ?></td>
                                                 <td></td>
-                                                <td class="text-center"><?= $kat['nilai_spkbibit']; ?></td>
+                                                <td class="text-center"><?= number_format($kat['nilai_spkbibit'], 2, ',', '.'); ?></td>
                                                 <td class="text-center"><b class="<?= ($realisasi['nilaibibit'] < $kat['nilai_spkbibit']) ? "text-danger" : ""; ?> <?= ($realisasi['nilaibibit'] > $kat['nilai_spkbibit']) ? "text-warning" : "text-success"; ?>"><?= number_format($realisasi['nilaibibit'], 0, ',', '.'); ?></b> dari <b class="text-success"><?= number_format($kat['nilai_spkbibit'], 0, ',', '.'); ?></b></td>
                                                 <td class="text-center <?= ($persentaseBi >= $bobotBi['bobot']) ? "text-success" : "text-danger"; ?> " style='cursor:pointer' data-toggle='tooltip' data-placement="right" title="Dari <?= $bobotBi['bobot']; ?>">
                                                     <?php
@@ -403,6 +403,7 @@ $aprvLapangan = "lapangan";
                                                     <td class="text-center"><?= $valueBibit['satuan']; ?></td>
                                                     <td></td>
                                                     <td class="text-center <?= ($realisasi['nilaibibit'] < $kat['nilai_spkbibit']) ? "text-danger" : ""; ?> <?= ($realisasi['nilaibibit'] > $kat['nilai_spkbibit']) ? "text-warning" : "text-success"; ?>" data-toggle="tooltip" data-placement="left" title="<?= number_format($realisasi['nilaibibit'], 0, ',', '.'); ?> dari <?= number_format($kat['nilai_spkbibit'], 0, ',', '.'); ?>"><?= number_format($progresbibit['total'], 0, ',', '.'); ?></td>
+                                                    <td></td>
                                                     <td>
                                                         <?php
                                                         foreach ($harianbibit as $harbit) {
@@ -625,8 +626,8 @@ $aprvLapangan = "lapangan";
                                                 <td class="text-right"><?= $nomr++; ?></td>
                                                 <td><?= $valueLap['nm_kegiatan']; ?></td>
                                                 <td class="text-center"><?= $valueLap['satuan']; ?></td>
-                                                <td class="text-center"><?= $valueLap['nilai_spklapangan']; ?></td>
-                                                <td class="text-center font-weight-bold <?= ($valueLap['nilai_spklapangan'] < $progreslapangan['totnilai']) ? "text-warning" : ""; ?> <?= ($valueLap['nilai_spklapangan'] > $progreslapangan['totnilai']) ? "text-danger" : "text-success"; ?>" data-toggle="tooltip" data-placement="top" title="<?= number_format($progreslapangan['totnilai'], 2, '.', ','); ?> dari <?= number_format($valueLap['nilai_spklapangan'], 2, '.', ','); ?>"><?= number_format($progreslapangan['totnilai'], 2, '.', ','); ?></td>
+                                                <td class="text-center"><?= number_format($valueLap['nilai_spklapangan'], 2, ',', '.'); ?></td>
+                                                <td class="text-center font-weight-bold <?= ($valueLap['nilai_spklapangan'] < $progreslapangan['totnilai']) ? "text-warning" : ""; ?> <?= ($valueLap['nilai_spklapangan'] > $progreslapangan['totnilai']) ? "text-danger" : "text-success"; ?>" data-toggle="tooltip" data-placement="top" title="<?= number_format($progreslapangan['totnilai'], 2, '.', ','); ?> dari <?= number_format($valueLap['nilai_spklapangan'], 2, '.', ','); ?>"><?= number_format($progreslapangan['totnilai'], 2, ',', '.'); ?></td>
                                                 <td class="text-center <?= ($persentaseLap >= $bobotLa['bobot']) ? "text-success" : "text-danger"; ?> " style='cursor:pointer' data-toggle='tooltip' data-placement="right" title="Dari <?= $bobotLa['bobot']; ?>">
                                                     <?php
                                                     echo round($persentaseLap, 2) . "%";
@@ -993,7 +994,8 @@ $aprvLapangan = "lapangan";
                                                     </td>
                                                     <td class="text-center <?= ($persentase >= $bobot['bobot']) ? "text-success" : "text-danger"; ?> " style='cursor:pointer' data-toggle='tooltip' data-placement="right" title="Dari <?= $bobot['bobot']; ?>">
                                                         <?php
-                                                        echo round($persentase, 2) . "%";
+                                                        $pers = round($persentase, 2);
+                                                        echo number_format($pers, 2, ',', '.') . "%";
                                                         ?>
                                                     </td>
                                                     <td>
@@ -1005,7 +1007,17 @@ $aprvLapangan = "lapangan";
                                                     </td>
                                                     <td class="text-center">
                                                         <small>
-                                                            <a href="" class="badge badge-info p-2" data-toggle="modal" data-target="#Details<?= $value['id_spkbahan']; ?>" title="Detail"><i class="fas fa-fw fa-info fa-1x"></i></a>
+                                                            <?php
+                                                            if (empty($ket)) {
+                                                            ?>
+                                                                <button href="#" class="badge badge-danger p-2" title="Tidak ada detail data"><i class="fas fa-fw fa-info fa-1x"></i></button>
+                                                            <?php
+                                                            } else {
+                                                            ?>
+                                                                <a href="" class="badge badge-info p-2 disabled" data-toggle="modal" data-target="#Details<?= $value['id_spkbahan']; ?>" title="Detail"><i class="fas fa-fw fa-info fa-1x"></i></a>
+                                                            <?php
+                                                            }
+                                                            ?>
                                                         </small>
                                                         <!-- Modal -->
                                                         <div class="modal fade text-left" id="Details<?= $value['id_spkbahan']; ?>" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="newRoleLabel" aria-hidden="true">
@@ -1225,7 +1237,7 @@ $aprvLapangan = "lapangan";
                                                     <td class="text-center"><b class="<?= ($realisasi['nilaibibit'] < $kat['nilai_spkbibit']) ? "text-danger" : ""; ?> <?= ($realisasi['nilaibibit'] > $kat['nilai_spkbibit']) ? "text-warning" : "text-success"; ?>"><?= number_format($realisasi['nilaibibit'], 0, ',', '.'); ?></b> dari <b class="text-success"><?= number_format($kat['nilai_spkbibit'], 0, ',', '.'); ?></b></td>
                                                     <td class="text-center <?= ($persentaseBi >= $bobotBi['bobot']) ? "text-success" : "text-danger"; ?> " style='cursor:pointer' data-toggle='tooltip' data-placement="right" title="Dari <?= $bobotBi['bobot']; ?>">
                                                         <?php
-                                                        echo round($persentaseBi, 2) . "%";
+                                                        echo number_format($persentaseBi, 2, ',', '.') . "%";
                                                         ?>
                                                     </td>
                                                     <td></td>
@@ -1254,7 +1266,17 @@ $aprvLapangan = "lapangan";
                                                         </td>
                                                         <td class="text-center">
                                                             <small>
-                                                                <a href="" class="badge badge-info p-2" data-toggle="modal" data-target="#DetailsBibit<?= $valueBibit['id_bibit']; ?>" title="Detail"><i class="fas fa-fw fa-info fa-1x"></i></a>
+                                                                <?php
+                                                                if (empty($progresbibit['total'])) {
+                                                                ?>
+                                                                    <button href="#" class="badge badge-danger p-2" title="Tidak ada detail data"><i class="fas fa-fw fa-info fa-1x"></i></button>
+                                                                <?php
+                                                                } else {
+                                                                ?>
+                                                                    <a href="" class="badge badge-info p-2" data-toggle="modal" data-target="#DetailsBibit<?= $valueBibit['id_bibit']; ?>" title="Detail"><i class="fas fa-fw fa-info fa-1x"></i></a>
+                                                                <?php
+                                                                }
+                                                                ?>
                                                             </small>
                                                             <!-- Modal Add SPK Kategori bibit-->
                                                             <div class="modal fade text-left" id="DetailsBibit<?= $valueBibit['id_bibit']; ?>" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="newRoleLabel" aria-hidden="true">
@@ -1474,11 +1496,11 @@ $aprvLapangan = "lapangan";
                                                     <td class="text-center"><?= $valueLap['satuan']; ?></td>
                                                     <td class="text-center"><?= number_format($valueLap['nilai_spklapangan'], 2, ',', '.'); ?></td>
                                                     <td class="text-center font-weight-bold <?= ($valueLap['nilai_spklapangan'] < $progreslapangan['totnilai']) ? "text-warning" : ""; ?> <?= ($valueLap['nilai_spklapangan'] > $progreslapangan['totnilai']) ? "text-danger" : "text-success"; ?>" data-toggle="tooltip" data-placement="top" title="<?= number_format($progreslapangan['totnilai'], 2, '.', ','); ?> dari <?= number_format($valueLap['nilai_spklapangan'], 2, '.', ','); ?>">
-                                                        <?= number_format($progreslapangan['totnilai'], 2, '.', ','); ?>
+                                                        <?= number_format($progreslapangan['totnilai'], 2, ',', '.'); ?>
                                                     </td>
                                                     <td class="text-center <?= ($persentaseLap >= $bobotLa['bobot']) ? "text-success" : "text-danger"; ?> " style='cursor:pointer' data-toggle='tooltip' data-placement="right" title="Dari <?= $bobotLa['bobot']; ?>">
                                                         <?php
-                                                        echo round($persentaseLap, 2) . "%";
+                                                        echo number_format($persentaseLap, 2, ',', '.') . "%";
                                                         ?>
                                                     </td>
                                                     <td>
@@ -1490,7 +1512,17 @@ $aprvLapangan = "lapangan";
                                                     </td>
                                                     <td class="text-center">
                                                         <small>
-                                                            <a href="" class="badge badge-info p-2" data-toggle="modal" data-target="#DetailsLap<?= $valueLap['id_spklapangan']; ?>" title="Detail"><i class="fas fa-fw fa-info fa-1x"></i></a>
+                                                            <?php
+                                                            if (empty($harianlapangan)) {
+                                                            ?>
+                                                                <button href="#" class="badge badge-danger p-2" title="Tidak ada detail data"><i class="fas fa-fw fa-info fa-1x"></i></button>
+                                                            <?php
+                                                            } else {
+                                                            ?>
+                                                                <a href="" class="badge badge-info p-2" data-toggle="modal" data-target="#DetailsLap<?= $valueLap['id_spklapangan']; ?>" title="Detail"><i class="fas fa-fw fa-info fa-1x"></i></a>
+                                                            <?php
+                                                            }
+                                                            ?>
                                                         </small>
                                                         <!-- Modal -->
                                                         <div class="modal fade text-left" id="DetailsLap<?= $valueLap['id_spklapangan']; ?>" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="newRoleLabel" aria-hidden="true">

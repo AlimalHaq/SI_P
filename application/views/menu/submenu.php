@@ -1,6 +1,20 @@
 <!-- Begin Page Content -->
 <div class="container-fluid">
 
+    <!-- iconsFa Modal-->
+    <div class="modal fade" id="iconsFa" tabindex="-1" role="dialog" aria-labelledby="iconsFaLabel" aria-hidden="true">
+        <div class="modal-dialog modal-xl" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="iconsFaLabel">Petunjuk pengunaan icons</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <iframe src="https://drive.google.com/file/d/13E5ZRoEVZvZmBWYy3uSyyDvtpYzwmIt7/preview" class="embedded-video-large" width="100%" height="680" allowfullscreen="1" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"></iframe>
+            </div>
+        </div>
+    </div>
     <!-- Page Heading -->
     <h1 class="h3 mb-4 text-gray-800"><?= $title; ?></h1>
     <div class="row">
@@ -75,8 +89,16 @@
                         <div class="form-group">
                             <div class="mb-3 row">
                                 <label for="icon" class="col-sm-2 col-form-label">Icon sub menu</label>
-                                <div class="col-sm-10">
+                                <div class="col-sm-8">
                                     <input type="text" class="form-control" id="icon" name="icon" placeholder="Sub Menu icon" required>
+                                </div>
+                                <div class="col-sm-2 text-center">
+                                    <div class=" btn btn-light btn-icon-split">
+                                        <b data-toggle="tooltip" data-placement="top" title="Klik untuk menonton pengunaan icons">
+                                            <a href="#" class="icon text-white-5" data-toggle="modal" data-target="#iconsFa"> &nbsp; <i class="fa fa-info"></i> &nbsp; </a>
+                                        </b>
+                                        <a href="https://fontawesome.com/v5.15/icons?d=gallery&p=2&m=free" target="_blank" class="text">klik here about icons</a>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -89,7 +111,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="modal-footer">
+                    <div class="card-footer text-right">
                         <button type="submit" class="btn btn-primary">Add</button>
                         <button type="button" id="cancel" class="btn btn-danger" data-dismiss="modal">Cancel</button>
                     </div>
@@ -117,7 +139,7 @@
                         <?php
                         $i = 1;
                         foreach ($subMenu as $sm) : ?>
-                            <tr>
+                            <tr id="yo<?= $sm['id']; ?>">
                                 <th scope="row"><?= $i; ?></th>
                                 <td><?= $sm['title']; ?></td>
                                 <td><?= $sm['menu']; ?></td>
@@ -126,23 +148,20 @@
                                 <td><?= htmlspecialchars($link); ?>...</td>
                                 <td><?= $sm['icon']; ?></td>
                                 <td><?= $sm['is_active']; ?></td>
-                                <td>
-                                    <a href="" class="badge badge-info" data-toggle="modal" data-target="#editModal<?= $sm['id']; ?>">Edit</a>
-                                    <a href="" class="badge badge-danger" data-toggle="modal" data-target="#delModal<?= $sm['id']; ?>">Delete</a>
+                                <td id="btnEdit<?= $sm['id']; ?>">
+                                    <a href="#yo<?= $sm['id']; ?>" class=" badge badge-info" id="editBtn<?= $sm['id']; ?>">Edit</a>
+                                    <a href="#" class="badge badge-danger" data-toggle="modal" data-target="#delModal<?= $sm['id']; ?>">Delete</a>
                                 </td>
+                                <!-- Edit Modal-->
                             </tr>
-                            <!-- Edit Modal-->
-                            <div class="modal fade" id="editModal<?= $sm['id']; ?>" tabindex="-1" role="dialog" aria-labelledby="editMenuModalLabel" aria-hidden="true">
-                                <div class="modal-dialog modal-xl" role="document">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h5 class="modal-title" id="editMenuModalLabel">Edit Sub Menu</h5>
-                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                <span aria-hidden="true">&times;</span>
-                                            </button>
+                            <tr id="editCard<?= $sm['id']; ?>">
+                                <th colspan="8">
+                                    <div class="card shadow mb-2" aria-labelledby="editMenuCardLabel" aria-hidden="true">
+                                        <div class="card-header">
+                                            <h5 class="font-weight-bold" id="editMenuCardLabel">Edit Sub Menu</h5>
                                         </div>
                                         <form action="<?= base_url('menu/submenuUpdt/') . $sm['id']; ?>" method="post">
-                                            <div class="modal-body">
+                                            <div class="card-body">
                                                 <div class="form-group">
                                                     <div class="mb-3 row">
                                                         <label for="title" class="col-sm-2 col-form-label">Judul sub menu</label>
@@ -192,8 +211,16 @@
                                                 <div class="form-group">
                                                     <div class="mb-3 row">
                                                         <label for="icon" class="col-sm-2 col-form-label">Icon sub menu</label>
-                                                        <div class="col-sm-10">
+                                                        <div class="col-sm-8">
                                                             <input type="text" class="form-control" id="icon" value="<?= $sm['icon'] ?>" name="icon" placeholder="Sub Menu icon" required>
+                                                        </div>
+                                                        <div class="col-sm-2 text-center">
+                                                            <div class=" btn btn-light btn-icon-split">
+                                                                <b data-toggle="tooltip" data-placement="top" title="Klik untuk menonton pengunaan icons">
+                                                                    <a href="#" class="icon text-white-5" data-toggle="modal" data-target="#iconsFa"> &nbsp; <i class="fa fa-info"></i> &nbsp; </a>
+                                                                </b>
+                                                                <a href="https://fontawesome.com/v5.15/icons?d=gallery&p=2&m=free" target="_blank" class="text">klik here about icons</a>
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -208,14 +235,23 @@
                                                 </div>
                                             </div>
                                             <div class="modal-footer">
-                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
                                                 <button type="submit" class="btn btn-primary">Update</button>
+                                                <button type="button" class="btn btn-warning" id="cancelEdtCard<?= $sm['id']; ?>">Cancel</button>
                                             </div>
                                         </form>
                                     </div>
-                                </div>
-                            </div>
+                                </th>
+                            </tr>
                             <script>
+                                // For Form Edit
+                                $("#editCard<?= $sm['id']; ?>").hide();
+                                $("#btnEdit<?= $sm['id']; ?>").on("click", "#editBtn<?= $sm['id']; ?>", function() {
+                                    $("#editCard<?= $sm['id']; ?>").fadeIn(800);
+                                });
+                                $("#editCard<?= $sm['id']; ?>").on("click", "#cancelEdtCard<?= $sm['id']; ?>", function() {
+                                    $("#editCard<?= $sm['id']; ?>").fadeOut(800);
+                                });
+                                // For Text Editor 
                                 tinymce.init({
                                     selector: '#Editor<?= $i; ?>',
                                     height: 500,
@@ -228,7 +264,7 @@
                                         'insertdatetime nonbreaking save table contextmenu directionality',
                                         'emoticons template paste textcolor colorpicker textpattern imagetools codesample toc'
                                     ],
-                                    // toolbar1: 'undo redo | insert | styleselect table | bold italic | hr alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image media ',
+                                    toolbar1: 'undo redo | insert | styleselect table | bold italic | hr alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image media ',
                                     toolbar2: 'print preview | forecolor backcolor emoticons | fontselect | fontsizeselect | codesample code fullscreen',
                                 });
 
