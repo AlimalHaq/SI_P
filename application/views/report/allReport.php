@@ -423,7 +423,7 @@
                                                         $bibit = $this->report->getBibit($valueKat['id_spkbibit']);
                                                     ?>
                                                         <tr>
-                                                            <td><?= number_format($realisasi['nilaibibit'], 0, ',', '.'); ?></td>
+                                                            <td><?= number_format($realisasi['nilaibibit'], 2, ',', '.'); ?></td>
                                                         </tr>
                                                         <?php
                                                         foreach ($bibit as $valueBibit) {
@@ -431,7 +431,7 @@
                                                         ?>
                                                             <tr>
                                                                 <td>
-                                                                    <?= number_format($progresbibit['total'], 0, ',', '.'); ?></td>
+                                                                    <?= number_format($progresbibit['total'], 2, ',', '.'); ?></td>
                                                             </tr>
                                                     <?php }
                                                     } ?>
@@ -441,7 +441,7 @@
                                                         $progreslapangan = $this->report->getLapanganProgres($keyKab['id_petak'], $valueLap['id_spklapangan']);
                                                     ?>
                                                         <tr>
-                                                            <td><?= number_format($progreslapangan['totnilai'], 2, '.', ','); ?></td>
+                                                            <td><?= number_format($progreslapangan['totnilai'], 2, ',', '.'); ?></td>
                                                         </tr> <?php
                                                             }
                                                                 ?>
