@@ -376,7 +376,7 @@
                                                     foreach ($kegBahan as $value) {
                                                         $bobot = $this->bobot->getBobotHarian($value['id_kegiatan']); ?>
                                                         <tr>
-                                                            <td> <?= round($bobot['bobot'], 2); ?> </td>
+                                                            <td> <?= number_format($bobot['bobot'], 2, ',', '.'); ?> </td>
                                                         </tr> <?php
                                                             } ?>
                                                     <!-- Untuk Bibit -->
@@ -385,7 +385,7 @@
                                                         $bibit = $this->report->getBibit($valueKat['id_spkbibit']);
                                                         $bobotBi = $this->bobot->getBobotHarianBibit($valueKat['kategori']); ?>
                                                         <tr>
-                                                            <td> <?= round($bobotBi['bobot'], 2); ?></td>
+                                                            <td> <?= number_format($bobotBi['bobot'], 2, ',', '.'); ?></td>
                                                         </tr>
                                                         <?php
                                                         foreach ($bibit as $valueBibit) {
@@ -400,7 +400,7 @@
                                                     foreach ($lapangan as $valueLap) {
                                                         $bobotLa = $this->bobot->getBobotHarianLap($valueLap['id_kegiatan']); ?>
                                                         <tr>
-                                                            <td><?= round($bobotLa['bobot'], 2); ?></td>
+                                                            <td><?= number_format($bobotLa['bobot'], 2, ',', '.'); ?></td>
                                                         </tr> <?php
                                                             }
                                                                 ?>
@@ -456,7 +456,7 @@
                                                         $bobot = $this->bobot->getBobotHarian($value['id_kegiatan']);
                                                         $persentase = ($value['nilai_spkbahan'] == 0) ? 0 : ($nilai['totnilai'] / $value['nilai_spkbahan']) * $bobot['bobot']; ?>
                                                         <tr>
-                                                            <td> <?= round($persentase, 2); ?> </td>
+                                                            <td> <?= number_format($persentase, 2, ',', '.'); ?> </td>
                                                         </tr> <?php
                                                             } ?>
                                                     <!-- Untuk Bibit -->
@@ -468,7 +468,7 @@
                                                         $bibit = $this->report->getBibit($valueKat['id_spkbibit']);
                                                     ?>
                                                         <tr>
-                                                            <td><?= round($persentaseBi, 2); ?></td>
+                                                            <td><?= number_format($persentaseBi, 2, ',', '.'); ?></td>
                                                         </tr>
                                                         <?php
                                                         foreach ($bibit as $valueBibit) {
@@ -486,7 +486,7 @@
                                                         $persentaseLap = ($valueLap['nilai_spklapangan'] == 0) ? 0 : ($progreslapangan['totnilai'] / $valueLap['nilai_spklapangan']) * $bobotLa['bobot'];
                                                     ?>
                                                         <tr>
-                                                            <td><?= round($persentaseLap, 2); ?></td>
+                                                            <td><?= number_format($persentaseLap, 2, ',', '.'); ?></td>
                                                         </tr> <?php
                                                             }
                                                                 ?>
